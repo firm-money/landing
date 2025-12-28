@@ -14,7 +14,7 @@ const ASSETS = {
 	STAT_BG_3: "https://www.figma.com/api/mcp/asset/595eabec-6eb1-4770-9dff-0282574245b8",
 };
 
-interface HeroProps {
+interface BannerDisplayProps {
 	bannerText?: string;
 	bannerLink?: { text: string; href: string };
 	bannerExpiry?: string | number;
@@ -24,7 +24,7 @@ export function Hero({
 	bannerText = "yUSF is live on Status",
 	bannerLink = { text: "Get FIRM", href: "#" },
 	bannerExpiry,
-}: HeroProps) {
+}: BannerDisplayProps) {
 	const shouldReduceMotion = useReducedMotion();
 
 	return (
@@ -191,12 +191,12 @@ export function Hero({
 
 function StatCard({ value, label, footer, bgImg }: { value: string; label: string; footer?: string; bgImg: string }) {
 	return (
-		<div className="relative group overflow-hidden bg-transparent p-8 flex flex-col justify-center min-h-[223px]">
+		<div className="relative group overflow-hidden bg-transparent p-2 lg:p-4 items-start justify-start flex flex-col min-h-[223px]">
 			{/* Union Background */}
 			<img src={bgImg} alt="" className="absolute inset-0 size-full object-contain group-hover:scale-105 transition-transform duration-500" />
 
 			<div className="relative z-10 flex flex-col gap-2 ml-6">
-				<p className="font-heading text-5xl font-light tracking-[-0.96px] text-[#f0f1f3] md:text-[48px]">
+				<p className="font-heading text-3xl lg:text-5xl font-light tracking-[-0.96px] text-[#f0f1f3] md:text-[48px]">
 					{value}
 				</p>
 				<p className="font-sans text-lg font-normal text-[#c3cce9] tracking-[-0.36px] md:text-[18px]">

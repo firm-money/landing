@@ -4,13 +4,23 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 
+/**
+ * Props for the Banner component.
+ *
+ * @property {string} text - The main text/content displayed in the banner.
+ * @property {Object} [link] - (Optional) An object defining the banner call-to-action link.
+ * @property {string} link.text - The text label for the link.
+ * @property {string} link.href - The URL or path for the link destination.
+ * @property {string | number} [expiryTime] - (Optional) An ISO date string or a numeric timestamp.
+ *     If provided, the banner will expire (hide) when this time passes.
+ */
 interface BannerProps {
 	text: string;
 	link?: {
 		text: string;
 		href: string;
 	};
-	expiryTime?: string | number; // ISO string or timestamp
+	expiryTime?: string | number;
 }
 
 export function Banner({ text, link, expiryTime }: BannerProps) {
