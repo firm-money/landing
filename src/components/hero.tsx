@@ -54,25 +54,37 @@ export function Hero() {
 						{/* Left Content */}
 						<div className="flex max-w-[531px] flex-col gap-8">
 							<div className="flex flex-col gap-4">
-								<h1 className="font-heading text-5xl font-semibold leading-[0.95] tracking-tight md:text-[64px] text-[#e1e2e5]">
+								<motion.h1
+									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
+									animate={{ y: 0, opacity: 1 }}
+									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+									className="font-heading text-5xl font-semibold leading-[0.95] tracking-tight md:text-[64px] text-[#e1e2e5]"
+								>
 									Your money <br /> should be <span className="text-brand-yellow uppercase">firm</span>
-								</h1>
-								<p className="font-sans text-lg xl:text-xl font-normal leading-relaxed xl:tracking-[-0.75px] text-[#e1e3e7] md:text-[24px]">
+								</motion.h1>
+								<motion.p
+									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
+									animate={{ y: 0, opacity: 1 }}
+									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+									className="font-sans text-lg xl:text-xl font-normal leading-relaxed xl:tracking-[-0.75px] text-[#e1e3e7] md:text-[24px]"
+								>
 									Native stablecoin where you earn by using apps, and yield comes from{" "}
 									<span className="font-semibold text-white">real borrowing</span>,{" "}
 									<span className="font-semibold text-white">not printed points.</span>
-								</p>
+								</motion.p>
 							</div>
 
 							<motion.div
-								whileHover={{ y: -2 }}
-								whileTap={{ scale: 0.98, y: 0 }}
-								transition={{ type: "spring", stiffness: 400, damping: 25 }}
+								initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
+								animate={{ y: 0, opacity: 1 }}
+								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+								whileHover={shouldReduceMotion ? {} : { y: -2 }}
+								whileTap={shouldReduceMotion ? {} : { scale: 0.98, y: 0 }}
 							>
 								<Button size="lg" className="group bg-[#1447e6] border-2 border-white/20 hover:border-white/40 text-xl font-semibold px-8 py-5 h-auto rounded-[2px] shadow-[0_0_20px_rgba(20,71,230,0.3)] hover:shadow-[0_0_25px_rgba(20,71,230,0.5)] flex items-center gap-[12px] w-fit tracking-[-0.01em] transition-all duration-300">
 									Make your bags FIRM
 
-									<div className="relative">
+									<div className="relative" aria-hidden="true">
 										<svg xmlns="http://www.w3.org/2000/svg" className="size-6 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" viewBox="0 0 33 18" fill="none">
 											<path d="M22.2445 0L24.4676 6.77665L32.0693 8.99975L24.4676 11.2229L22.2445 17.9995L20.0214 11.2229L0 8.99975L20.0214 6.77665L22.2445 0Z" fill="#EEECE7" />
 										</svg>
@@ -82,7 +94,12 @@ export function Hero() {
 								</Button>
 							</motion.div>
 
-							<div className="flex items-center gap-1 -ml-2">
+							<motion.div
+								initial={{ y: shouldReduceMotion ? 0 : 10, opacity: 0 }}
+								animate={{ y: 0, opacity: 1 }}
+								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+								className="flex items-center gap-1 -ml-2"
+							>
 								{/* TODO: Change these to custom hugeicon svgs */}
 								{[
 									{ id: "discord", src: ASSETS.DISCORD, alt: "Discord" },
@@ -99,7 +116,7 @@ export function Hero() {
 										<img src={social.src} alt={social.alt} className="size-8 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
 									</motion.a>
 								))}
-							</div>
+							</motion.div>
 						</div>
 
 						{/* Right Visual */}
