@@ -9,9 +9,9 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
 	return (
 		<div className="flex flex-col min-h-screen bg-[#151821]">
-			<Banner 
-				text="yUSF is live on Status" 
-				link={{ text: "Get FIRM", href: "#" }} 
+			<Banner
+				text="yUSF is live on Status"
+				link={{ text: "Get FIRM", href: "#" }}
 			/>
 			<Navbar />
 			<main className="flex-1">

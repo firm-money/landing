@@ -23,7 +23,7 @@ export function Hero({
 	const hasStats = stats && stats.length > 0;
 
 	return (
-		<div className="relative flex min-h-screen flex-col bg-[#151821] text-white overflow-hidden isolate">
+		<div className="relative flex flex-col bg-[#151821] text-white overflow-hidden isolate">
 			<div className="absolute inset-0 pointer-events-none z-0">
 				<motion.div
 					initial={{ y: shouldReduceMotion ? 0 : -100, opacity: 0 }}
@@ -135,7 +135,7 @@ export function Hero({
 				</div>
 
 				{/* Stats Section */}
-				<div className="mt-16 md:mt-32 mb-24 md:mb-48 w-full xl:max-w-[1440px] xl:mx-auto px-6 md:px-12 xl:px-0">
+				<div className="mt-16 md:mt-32 w-full xl:max-w-[1440px] xl:mx-auto px-6 md:px-12 xl:px-0">
 					<div className={`grid gap-4 md:gap-4 items-stretch ${hasStats
 						? "grid-cols-1 md:grid-cols-[auto_1fr_1fr_auto] lg:grid-cols-[auto_1fr_1fr_1fr_auto]"
 						: "grid-cols-1 md:grid-cols-[auto_1fr_1fr_auto]"
