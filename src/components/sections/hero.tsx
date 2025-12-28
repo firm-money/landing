@@ -1,21 +1,14 @@
 import { cubicBezier, motion, useReducedMotion } from "motion/react";
-import { Banner } from "./banner";
-import { BrandStar, Logotype } from "./brand-assets";
-import { StatCard } from "./stat-card";
+import { BrandStar, Logotype } from "@/components/brand-assets";
+import { StatCard } from "@/components/stat-card";
 
 const ASSETS = {
 	BANNER_STAR: "https://www.figma.com/api/mcp/asset/c9784cf6-6bc5-4434-8065-6bc0a0f92a27",
 	HERO_DECOR: "https://www.figma.com/api/mcp/asset/076b1a34-5e83-4fb3-b0f6-891bb3143a47",
 	YUSF_BADGE: "https://www.figma.com/api/mcp/asset/0f761361-9992-4331-984d-a652c4c89bcf",
-	DISCORD: "https://www.figma.com/api/mcp/asset/3b513d49-6277-488d-9091-813581b0834c",
-	GITHUB: "https://www.figma.com/api/mcp/asset/21603fc3-7f12-4426-ac9e-d9413b28fa52",
-	TWITTER: "https://www.figma.com/api/mcp/asset/aa62c3a3-522e-4d22-801a-ac4f17c2a20c",
 };
 
 interface BannerDisplayProps {
-	bannerText?: string;
-	bannerLink?: { text: string; href: string };
-	bannerExpiry?: string | number;
 	stats?: {
 		value: string;
 		label: string;
@@ -24,9 +17,6 @@ interface BannerDisplayProps {
 }
 
 export function Hero({
-	bannerText = "yUSF is live on Status",
-	bannerLink = { text: "Get FIRM", href: "#" },
-	bannerExpiry,
 	stats = [], // Default to empty array to show pending state
 }: BannerDisplayProps) {
 	const shouldReduceMotion = useReducedMotion();
@@ -34,8 +24,6 @@ export function Hero({
 
 	return (
 		<div className="relative flex min-h-screen flex-col bg-[#151821] text-white overflow-hidden isolate">
-			<Banner text={bannerText} link={bannerLink} expiryTime={bannerExpiry} />
-
 			<div className="absolute inset-0 pointer-events-none z-0">
 				<motion.div
 					initial={{ y: shouldReduceMotion ? 0 : -100, opacity: 0 }}
@@ -92,30 +80,6 @@ export function Hero({
 									<div className="absolute inset-0 bg-white/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 								</div>
 							</motion.button>
-
-							<motion.div
-								initial={{ y: shouldReduceMotion ? 0 : 10, opacity: 0 }}
-								animate={{ y: 0, opacity: 1 }}
-								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-								className="flex items-center gap-1 -ml-2"
-							>
-								{/* TODO: Change these to custom hugeicon svgs */}
-								{[
-									{ id: "discord", src: ASSETS.DISCORD, alt: "Discord" },
-									{ id: "github", src: ASSETS.GITHUB, alt: "GitHub" },
-									{ id: "twitter", src: ASSETS.TWITTER, alt: "Twitter" },
-								].map((social) => (
-									<motion.a
-										key={social.id}
-										href="#"
-										whileHover={{ y: -2, backgroundColor: "rgba(116, 134, 180, 0.1)" }}
-										whileTap={{ scale: 0.95 }}
-										className="p-3 rounded-[4px] transition-colors flex items-center justify-center min-w-[48px] min-h-[48px] group/social"
-									>
-										<img src={social.src} alt={social.alt} className="size-8 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-									</motion.a>
-								))}
-							</motion.div>
 						</div>
 
 						{/* Right Visual */}
