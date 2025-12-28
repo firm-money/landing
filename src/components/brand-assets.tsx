@@ -80,7 +80,7 @@ export function Logotype({
 	fill?: string;
 }) {
 	return (
-		<div className={`w-fit ${className}`}>
+		<div className={`w-fit ${className} aspect-[76.69/24]`}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="100%"

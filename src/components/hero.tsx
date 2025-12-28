@@ -36,21 +36,21 @@ export function Hero({
 					initial={{ y: shouldReduceMotion ? 0 : -100, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 2, ease: cubicBezier(0, 0.55, 0.45, 1) }}
-					className="flex justify-center xl:-mt-24 will-change-transform"
+					className="flex justify-center lg:-mt-32 xl:-mt-8 will-change-transform h-[160px] md:h-[320px] lg:h-[540px]"
 				>
 					<Logotype
 						fill="#2156FC"
-						className="h-[160px] xl:h-[520px] aspect-auto opacity-[0.25] pointer-events-none select-none"
+						className="h-full w-full aspect-[76.69/24] opacity-[0.25] pointer-events-none select-none"
 					/>
 				</motion.div>
 			</div>
 
 			<div className="relative z-10 flex-1 flex flex-col">
-				<div className="container mx-auto px-6 md:px-12 lg:px-24 pt-12 xl:pt-20">
+				<div className="container mx-auto max-w-[1280px] px-6 md:px-12 lg:px-24 pt-12 xl:pt-20">
 
-					<div className="mt-18 xl:mt-2 flex flex-col-reverse items-start gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-32">
+					<div className="mt-18 lg:mt-42 xl:mt-60 flex flex-col-reverse items-start gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
 						{/* Left Content */}
-						<div className="flex max-w-[531px] flex-col gap-8">
+						<div className="flex max-w-[520px] flex-col gap-8">
 							<div className="flex flex-col gap-3">
 								<motion.h1
 									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
@@ -114,7 +114,7 @@ export function Hero({
 						</div>
 
 						{/* Right Visual */}
-						<div className="relative flex shrink-0 items-center justify-center lg:w-[600px] aspect-square">
+						<div className="relative flex shrink-0 items-center justify-center aspect-square">
 
 							{/* Rotating Badge Container */}
 							<div className="relative z-10 xl:size-[220px] size-[180px]">
