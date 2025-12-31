@@ -3,6 +3,7 @@
 import { Logo, TokenLogo } from "@/components/brand-assets";
 import { cn } from "@/lib/utils";
 import statusLogo from "@/assets/status-logo.svg";
+import { motion } from "motion/react";
 
 const features = [
 	{
@@ -93,38 +94,35 @@ export function StatusFirmSection({ className }: { className?: string }) {
 					{/* Visual cluster */}
 					<div className="relative isolate overflow-hidden rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_40%_50%,rgba(113,64,253,0.18),transparent_55%),radial-gradient(circle_at_70%_40%,rgba(11,93,255,0.2),transparent_60%),linear-gradient(180deg,rgba(12,17,26,0.92),rgba(12,17,26,0.72))] p-10 shadow-[0_30px_120px_-50px_rgba(0,0,0,0.85)]">
 						<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.04),transparent_42%)]" />
-						<div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center gap-6">
-							<div className="relative flex items-center justify-center">
-								<div
-									className="absolute inset-0 rounded-full bg-[#7140fd] opacity-70 blur-[70px]"
-									aria-hidden
-								/>
-								<div className="relative rounded-full bg-[#5b2ef5] p-6 shadow-[0_0_80px_18px_rgba(113,64,253,0.45)]">
-									<div className="h-[200px] w-[200px] sm:h-[230px] sm:w-[230px]">
-										<img
-											src={statusLogo}
-											alt="Status"
-											className="h-full w-full drop-shadow-[0_0_40px_rgba(113,64,253,0.55)]"
-											loading="lazy"
-										/>
-									</div>
+						<div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center gap-0">
+							<motion.div
+								className="relative h-[240px] w-[240px] sm:h-[270px] sm:w-[270px] translate-x-4 sm:translate-x-6"
+								animate={{ scale: [1, 1.03, 1], opacity: [0.94, 1, 0.94] }}
+								transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+							>
+								<div className="absolute inset-0 rounded-full bg-linear-to-br from-[#8a4bff] via-[#6c4bff] to-[#2c2ad9] opacity-85" />
+								<div className="absolute inset-[10%] rounded-full bg-linear-to-br from-[#9d5bff] via-[#8b4dff] to-[#5637f0]" />
+								<div className="absolute inset-[22%] flex items-center justify-center">
+									<img
+										src={statusLogo}
+										alt="Status"
+										className="h-full w-full drop-shadow-[0_0_40px_rgba(113,64,253,0.55)]"
+										loading="lazy"
+									/>
 								</div>
-							</div>
+							</motion.div>
 
-							<div className="relative -ml-12 flex items-center justify-center sm:-ml-16">
-								<div
-									className="absolute inset-0 rounded-full bg-[#0b5dff] opacity-70 blur-[70px]"
-									aria-hidden
-								/>
-								<div className="relative rounded-full bg-[#0c49e3] p-6 shadow-[0_0_80px_18px_rgba(11,93,255,0.45)]">
-									<div className="h-[200px] w-[200px] sm:h-[230px] sm:w-[230px] text-white drop-shadow-[0_0_36px_rgba(11,93,255,0.6)]">
-										<TokenLogo className="h-full w-full" />
-									</div>
+							<motion.div
+								className="relative h-[240px] w-[240px] sm:h-[270px] sm:w-[270px] -translate-x-4 sm:-translate-x-6"
+								animate={{ scale: [1, 1.03, 1], opacity: [0.94, 1, 0.94] }}
+								transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+							>
+								<div className="absolute inset-0 rounded-full bg-linear-to-br from-[#1d62ff] via-[#0f55f5] to-[#0a3dcc] opacity-90" />
+								<div className="absolute inset-[10%] rounded-full bg-linear-to-br from-[#2c6bff] via-[#1459f0] to-[#0d3fbf]" />
+								<div className="absolute inset-[22%] flex items-center justify-center text-white drop-shadow-[0_0_36px_rgba(11,93,255,0.6)]">
+									<TokenLogo className="h-full w-full" />
 								</div>
-								<div className="absolute bottom-4 right-3 flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/10 shadow-[0_0_26px_rgba(255,255,255,0.28)] backdrop-blur-sm sm:bottom-6 sm:right-5">
-									<Logo className="h-9 w-9 text-white drop-shadow-[0_0_18px_rgba(255,255,255,0.4)]" />
-								</div>
-							</div>
+							</motion.div>
 						</div>
 						<div className="mt-8 grid gap-3 sm:grid-cols-2">
 							<div className="rounded-lg border border-white/5 bg-white/5 px-4 py-3 text-sm text-white/80 shadow-[0_10px_32px_-18px_rgba(0,0,0,0.6)]">
