@@ -1,15 +1,12 @@
 import { Logotype, BrandStar } from "@/components/brand-assets";
-
-const SOCIAL_ASSETS = {
-	DISCORD: "https://www.figma.com/api/mcp/asset/3b513d49-6277-488d-9091-813581b0834c",
-	GITHUB: "https://www.figma.com/api/mcp/asset/21603fc3-7f12-4426-ac9e-d9413b28fa52",
-	TWITTER: "https://www.figma.com/api/mcp/asset/aa62c3a3-522e-4d22-801a-ac4f17c2a20c",
-};
+import discordIcon from "@/assets/social-icons/logo-discord.svg";
+import githubIcon from "@/assets/social-icons/logo-github.svg";
+import xIcon from "@/assets/social-icons/logo-x.svg";
 
 const socials = [
-	{ id: "discord", src: SOCIAL_ASSETS.DISCORD, alt: "Discord", href: "#" },
-	{ id: "github", src: SOCIAL_ASSETS.GITHUB, alt: "GitHub", href: "#" },
-	{ id: "twitter", src: SOCIAL_ASSETS.TWITTER, alt: "Twitter", href: "#" },
+	{ id: "discord", src: discordIcon, alt: "Discord", href: "#" },
+	{ id: "github", src: githubIcon, alt: "GitHub", href: "#" },
+	{ id: "x", src: xIcon, alt: "X", href: "https://x.com/usf_money" },
 ];
 
 export function Footer() {
@@ -52,10 +49,10 @@ export function Footer() {
 									className="group/social p-2 -m-2 transition-colors"
 									aria-label={social.alt}
 								>
-									<img 
-										src={social.src} 
-										alt={social.alt} 
-										className="size-6 opacity-40 group-hover/social:opacity-100 transition-opacity" 
+									<img
+										src={social.src}
+										alt={social.alt}
+										className="size-6 opacity-40 group-hover/social:opacity-100 transition-opacity"
 									/>
 								</a>
 							))}
