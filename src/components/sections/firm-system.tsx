@@ -200,13 +200,13 @@ export function FirmSystem() {
 												className={cn(
 													"px-5 py-2.5 rounded-sm border transition-all duration-300 group cursor-pointer",
 													isActive
-														? "bg-[#1447e6] border-blue-400 shadow-[0_0_25px_rgba(20,71,230,0.5)] scale-110"
+														? "bg-[#1447e6] border-[#F2B341]/30 shadow-[0_0_25px_rgba(20,71,230,0.4)] scale-110"
 														: "bg-[#1a1d26]/80 border-white/10 hover:border-white/30 hover:bg-[#1a1d26]"
 												)}
 											>
 												<span className={cn(
 													"font-archivo font-semibold text-base whitespace-nowrap tracking-tight transition-colors",
-													isActive ? "text-white" : "text-white/60 group-hover:text-white"
+													isActive ? "text-[#F2B341]" : "text-white/60 group-hover:text-white"
 												)}>
 													{item.title}
 												</span>
@@ -318,9 +318,9 @@ function AccordionItem({ title, description, icon, isOpen, onClick }: AccordionI
 	return (
 		<div
 			className={cn(
-				"border rounded-lg transition-all duration-300",
+				"border rounded-lg transition-all duration-300 overflow-hidden relative",
 				isOpen
-					? "bg-[#1447e6]/10 border-[#1447e6] shadow-[inset_0_0_20px_rgba(20,71,230,0.1)]"
+					? "bg-[#1447e6] border-[#1447e6] shadow-lg border-t-[3px] border-t-[#F2B341]"
 					: "bg-[#1a1d26]/40 border-white/5 hover:border-white/10"
 			)}
 		>
@@ -331,7 +331,7 @@ function AccordionItem({ title, description, icon, isOpen, onClick }: AccordionI
 				<div className="flex items-center gap-4">
 					<div className={cn(
 						"w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
-						isOpen ? "bg-[#1447e6] text-white" : "bg-white/5 text-white/40 group-hover:text-white/60"
+						isOpen ? "bg-white/10 text-white" : "bg-white/5 text-white/40 group-hover:text-white/60"
 					)}>
 						<HugeiconsIcon icon={icon} size={20} />
 					</div>
@@ -360,7 +360,7 @@ function AccordionItem({ title, description, icon, isOpen, onClick }: AccordionI
 						className="overflow-hidden"
 					>
 						<div className="px-4 md:px-6 pb-6 md:pb-8 pt-0 ml-14 md:ml-18">
-							<p className="text-[#a9b1c8] text-base md:text-lg leading-relaxed max-w-[400px]">
+							<p className="text-white/90 text-base md:text-lg leading-relaxed max-w-[400px]">
 								{description}
 							</p>
 						</div>
