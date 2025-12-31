@@ -2,6 +2,7 @@ import { MainLayout } from "@/components/layout/main-layout";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
 import { FirmSystem } from "@/components/sections/firm-system";
+import { StatusFirmSection } from "@/components/sections/status-firm";
 
 export function App() {
 	return (
@@ -9,6 +10,7 @@ export function App() {
 			<Hero />
 			<Features />
 			<FirmSystem />
+			<StatusFirmSection />
 		</MainLayout>
 	);
 }
