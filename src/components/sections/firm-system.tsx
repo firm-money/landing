@@ -1,25 +1,25 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/lib/utils";
 import {
-	Home01Icon,
-	FlashIcon,
-	ArrowUp01Icon,
 	Chart01Icon,
 	Coins01Icon,
-	PlusSignIcon,
+	CoinsDollarFreeIcons,
+	FlashIcon,
+	Home01Icon,
 	MinusSignIcon,
+	PlusSignIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { animate, AnimatePresence, motion, useMotionValue, useTransform } from "motion/react";
+import { useRef, useState } from "react";
 
 const systemItems = [
 	{
 		title: "Borrow & Mint",
 		description: "Mint FIRM against ETH, staked ETH, and Status-aligned assets. Positions are held in NFT vaults for easy transfer.",
 		angle: -90,
-		icon: ArrowUp01Icon,
+		icon: CoinsDollarFreeIcons,
 	},
 	{
 		title: "Set Your Rate",
@@ -49,6 +49,43 @@ const systemItems = [
 
 export function FirmSystem() {
 	const [activeIndex, setActiveIndex] = useState(0);
+	const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+	// Motion-driven Star Logic
+	const angleMotion = useMotionValue(systemItems[0].angle);
+	const flipMotion = useMotionValue(0);
+
+	const handleItemClick = (index: number) => {
+		const currentAngle = angleMotion.get();
+		let targetAngle = systemItems[index].angle;
+
+		// Shortest path logic: Normalize targetAngle to be within ±180 of currentAngle
+		while (targetAngle > currentAngle + 180) targetAngle -= 360;
+		while (targetAngle < currentAngle - 180) targetAngle += 360;
+
+		// Flip logic based on direction
+		if (targetAngle > currentAngle + 0.1) {
+			animate(flipMotion, 0, { type: "spring", stiffness: 300, damping: 30 });
+		} else if (targetAngle < currentAngle - 0.1) {
+			animate(flipMotion, 180, { type: "spring", stiffness: 300, damping: 30 });
+		}
+
+		// Animate along the shortest path
+		animate(angleMotion, targetAngle, {
+			type: "spring",
+			stiffness: 40,
+			damping: 15,
+			mass: 1,
+		});
+
+		setActiveIndex(index);
+		setTimeout(() => {
+			accordionRefs.current[index]?.scrollIntoView({
+				behavior: "smooth",
+				block: "nearest",
+			});
+		}, 50);
+	};
 
 	// SVG coordinate space: 1100x700
 	const width = 1100;
@@ -60,17 +97,21 @@ export function FirmSystem() {
 	const rx = 364.5;
 	const ry = 232.5;
 
-	// Desktop Star Logic - Now targets the active item
-	const targetAngle = systemItems[activeIndex].angle;
+	const starX = useTransform(angleMotion, (a) => cx + rx * Math.cos((a * Math.PI) / 180));
+	const starY = useTransform(angleMotion, (a) => cy + ry * Math.sin((a * Math.PI) / 180));
 
-	const starX = cx + rx * Math.cos((targetAngle * Math.PI) / 180);
-	const starY = cy + ry * Math.sin((targetAngle * Math.PI) / 180);
+	const tangentRotation = useTransform(angleMotion, (a) => {
+		const rad = (a * Math.PI) / 180;
+		// Standard ellipse velocity vector: dx/dt = -rx*sin(t), dy/dt = ry*cos(t)
+		const dx = -rx * Math.sin(rad);
+		const dy = ry * Math.cos(rad);
+		return (Math.atan2(dy, dx) * 180) / Math.PI;
+	});
 
-	// Calculate rotation to face "forward" along the path
-	const rad = (targetAngle * Math.PI) / 180;
-	const dx = rx * Math.sin(rad);
-	const dy = -ry * Math.cos(rad);
-	const starRotation = (Math.atan2(dy, dx) * 180) / Math.PI;
+	const starRotation = useTransform(
+		[tangentRotation, flipMotion],
+		([t, f]) => Number(t) + Number(f)
+	);
 
 	const starPath = "M58.2713 0.688292C58.5724 -0.22943 59.8706 -0.229431 60.1717 0.688291L65.7816 17.7889C65.8843 18.1021 66.1347 18.3445 66.451 18.437L85.6566 24.0536C86.6157 24.3341 86.6157 25.6927 85.6566 25.9732L66.451 31.5898C66.1347 31.6823 65.8843 31.9248 65.7816 32.2379L60.1717 49.3385C59.8706 50.2563 58.5724 50.2563 58.2713 49.3385L52.6978 32.3488C52.5756 31.9765 52.2474 31.7099 51.858 31.6666L0.889639 26.0073C-0.29655 25.8756 -0.296545 24.1512 0.889645 24.0195L51.858 18.3602C52.2474 18.317 52.5756 18.0503 52.6978 17.678L58.2713 0.688292Z";
 
@@ -109,16 +150,10 @@ export function FirmSystem() {
 							/>
 
 							<motion.g
-								animate={{
+								style={{
 									x: starX,
 									y: starY,
 									rotate: starRotation,
-								}}
-								transition={{
-									type: "spring",
-									stiffness: 40,
-									damping: 15,
-									mass: 1,
 								}}
 							>
 								<defs>
@@ -161,7 +196,7 @@ export function FirmSystem() {
 									>
 										<div className="w-full h-full flex items-center justify-center">
 											<button
-												onClick={() => setActiveIndex(i)}
+												onClick={() => handleItemClick(i)}
 												className={cn(
 													"px-5 py-2.5 rounded-sm border transition-all duration-300 group cursor-pointer",
 													isActive
@@ -204,25 +239,12 @@ export function FirmSystem() {
 								d="M 50 150 A 150 100 0 1 1 350 150 A 150 100 0 1 1 50 150"
 								fill="none"
 								stroke="white"
-								strokeOpacity="0.1"
+								strokeOpacity="0.2"
 								strokeWidth="1.5"
 								strokeDasharray="4 8"
 							/>
 
-							{/* Simplified mobile star position based on activeIndex */}
-							<motion.g
-								animate={{
-									rotate: activeIndex * (360 / 5) - 90
-								}}
-								style={{ originX: "200px", originY: "150px" }}
-								transition={{ type: "spring", stiffness: 50, damping: 15 }}
-							>
-								<g transform="translate(200, 50)">
-									<circle r="20" fill="url(#star-glow-grad)" opacity="0.6" />
-									<path d={starPath} fill="#F2B341" transform="translate(-43.5, -25.5) scale(0.5)" />
-								</g>
-							</motion.g>
-
+							{/* Simplified mobile star position based on activeIndex - Removed as it doesn't scale well */}
 							{systemItems.map((item, i) => {
 								const angle = (i * (360 / 5) - 90) * (Math.PI / 180);
 								const x = 200 + 150 * Math.cos(angle);
@@ -230,17 +252,17 @@ export function FirmSystem() {
 								const isActive = activeIndex === i;
 
 								return (
-									<g key={i} onClick={() => setActiveIndex(i)}>
+									<g key={i} onClick={() => handleItemClick(i)}>
 										<circle
 											cx={x}
 											cy={y}
-											r="18"
+											r="22"
 											fill={isActive ? "#1447e6" : "#1a1d26"}
 											className="transition-colors duration-300"
 										/>
-										<foreignObject x={x - 9} y={y - 9} width="18" height="18">
+										<foreignObject x={x - 12} y={y - 12} width="24" height="24">
 											<div className="flex items-center justify-center w-full h-full">
-												<HugeiconsIcon icon={item.icon} size={12} className="text-white" />
+												<HugeiconsIcon icon={item.icon} size={16} className="text-white" />
 											</div>
 										</foreignObject>
 									</g>
@@ -266,14 +288,15 @@ export function FirmSystem() {
 
 					<div className="space-y-3">
 						{systemItems.map((item, i) => (
-							<AccordionItem
-								key={i}
-								title={item.title}
-								description={item.description}
-								icon={item.icon}
-								isOpen={activeIndex === i}
-								onClick={() => setActiveIndex(i)}
-							/>
+							<div key={i} ref={(el) => { accordionRefs.current[i] = el; }}>
+								<AccordionItem
+									title={item.title}
+									description={item.description}
+									icon={item.icon}
+									isOpen={activeIndex === i}
+									onClick={() => handleItemClick(i)}
+								/>
+							</div>
 						))}
 					</div>
 				</div>
@@ -313,7 +336,7 @@ function AccordionItem({ title, description, icon, isOpen, onClick }: AccordionI
 						<HugeiconsIcon icon={icon} size={20} />
 					</div>
 					<h3 className={cn(
-						"font-heading font-semibold text-lg md:text-xl transition-colors",
+						"font-heading font-semibold text-lg md:text-xl transition-colors tracking-normal",
 						isOpen ? "text-white" : "text-white/70 group-hover:text-white"
 					)}>
 						{title}
