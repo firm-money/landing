@@ -2,12 +2,6 @@ import { cubicBezier, motion, useReducedMotion } from "motion/react";
 import { BrandStar, Logotype } from "@/components/brand-assets";
 import { StatCard } from "@/components/stat-card";
 
-const ASSETS = {
-	BANNER_STAR: "https://www.figma.com/api/mcp/asset/c9784cf6-6bc5-4434-8065-6bc0a0f92a27",
-	HERO_DECOR: "https://www.figma.com/api/mcp/asset/076b1a34-5e83-4fb3-b0f6-891bb3143a47",
-	YUSF_BADGE: "https://www.figma.com/api/mcp/asset/0f761361-9992-4331-984d-a652c4c89bcf",
-};
-
 interface BannerDisplayProps {
 	stats?: {
 		value: string;
@@ -125,8 +119,8 @@ export function Hero({
 										mass: 1.5,
 										delay: 0.4,
 									}}
-									src={ASSETS.YUSF_BADGE}
-									alt="yUSF Native Stablecoin"
+									src='/usf.svg'
+									alt="USF Token"
 									className="relative z-10 size-full object-contain"
 								/>
 							</div>
