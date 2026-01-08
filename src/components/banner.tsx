@@ -48,13 +48,13 @@ export function Banner({ text, link, expiryTime }: BannerProps) {
 	if (!isVisible) return null;
 
 	return (
-		<div className="relative z-50 bg-brand-yellow flex w-full items-center justify-center p-0 text-center text-xs md:text-sm font-semibold tracking-tight text-[#2c2416] leading-[1.05]">
-			<p className="py-2.5 pl-4">{text}</p>
+		<div className="relative z-50 bg-brand-yellow flex w-full items-center justify-center p-0 text-center text-xs md:text-sm font-semibold tracking-tight text-[#2c2416] leading-[1.05] min-h-[44px] md:min-h-[40px]">
+			<p className="py-2 md:py-1.5 pl-4">{text}</p>
 			{link && (
 				<a
 					href={link.href}
 					aria-label={`${link.text} on Status`}
-					className="group px-4 hover:bg-[#222734]/5 transition-all duration-300 flex items-center h-full min-h-[44px] ml-1"
+					className="group px-4 hover:bg-[#222734]/5 transition-all duration-300 flex items-center h-full min-h-[44px] md:min-h-[40px] ml-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#222734]"
 				>
 					<span className="border-b-2 border-[#222734]/40 group-hover:border-[#222734] transition-colors duration-300 py-0.5 flex items-center gap-1.5">
 						{link.text}
