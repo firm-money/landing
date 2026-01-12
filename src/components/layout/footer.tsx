@@ -24,7 +24,7 @@ export function Footer() {
 					<div className="flex flex-col gap-6">
 						<h4 className="text-white font-semibold uppercase tracking-wider text-xs">Product</h4>
 						<ul className="flex flex-col gap-4">
-							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">App</a></li>
+							<li><a href="https://app.usf.money" className="text-white/40 hover:text-white text-sm transition-colors">App</a></li>
 							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Stake</a></li>
 							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Borrow</a></li>
 						</ul>
@@ -33,7 +33,7 @@ export function Footer() {
 					<div className="flex flex-col gap-6">
 						<h4 className="text-white font-semibold uppercase tracking-wider text-xs">Resources</h4>
 						<ul className="flex flex-col gap-4">
-							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Documentation</a></li>
+							<li><a href="https://docs.usf.money" className="text-white/40 hover:text-white text-sm transition-colors">Documentation</a></li>
 							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Governance</a></li>
 							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Brand Assets</a></li>
 						</ul>

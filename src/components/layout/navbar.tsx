@@ -10,19 +10,20 @@ export function Navbar() {
 				</div>
 
 				<div className="hidden md:flex items-center gap-8">
-					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">App</a>
-					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</a>
+					<a href="https://app.usf.money" className="text-sm font-medium text-white/60 hover:text-white transition-colors">App</a>
+					<a href="https://docs.usf.money" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</a>
 					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Community</a>
 				</div>
 
-				<motion.button
+				<motion.a
+					href="https://app.usf.money"
 					whileHover={{ scale: 1.02 }}
 					whileTap={{ scale: 0.98 }}
 					className="cursor-pointer bg-[#1447e6] text-white px-5 py-2 rounded-sm text-sm font-semibold flex items-center gap-2"
 				>
 					Launch App
 					<BrandStar className="size-4" />
-				</motion.button>
+				</motion.a>
 			</div>
 		</nav>
 	);
