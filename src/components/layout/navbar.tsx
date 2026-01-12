@@ -5,9 +5,9 @@ export function Navbar() {
 	return (
 		<nav className="sticky top-0 z-50 bg-[#151821]/80 backdrop-blur-md border-b border-white/5">
 			<div className="container mx-auto max-w-[1280px] px-6 md:px-12 lg:px-24 h-16 md:h-20 flex items-center justify-between">
-				<div className="flex items-center gap-2">
+				<a href="/" className="flex items-center gap-2">
 					<Logotype fill="#2156FC" className="h-6 md:h-8 w-auto" />
-				</div>
+				</a>
 
 				<div className="hidden md:flex items-center gap-8">
 					<a href="https://app.usf.money" className="text-sm font-medium text-white/60 hover:text-white transition-colors">App</a>
