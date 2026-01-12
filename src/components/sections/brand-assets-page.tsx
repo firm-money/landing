@@ -134,7 +134,9 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 }
 
 function DownloadSVGButton({ svg, filename }: { svg: string; filename: string }) {
-	const handleDownload = () => {
+	const handleDownload = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
 		try {
 			// Parse and fix SVG dimensions
 			const parser = new DOMParser();
@@ -182,6 +184,7 @@ function DownloadSVGButton({ svg, filename }: { svg: string; filename: string })
 
 	return (
 		<button
+			type="button"
 			onClick={handleDownload}
 			className="px-3 py-1.5 bg-[#1447e6] hover:bg-[#2156FC] text-white text-xs font-medium transition-colors"
 		>
@@ -193,7 +196,9 @@ function DownloadSVGButton({ svg, filename }: { svg: string; filename: string })
 function DownloadPNGButton({ svg, filename, width = 512, height }: { svg: string; filename: string; width?: number; height?: number }) {
 	const [isGenerating, setIsGenerating] = useState(false);
 
-	const handleDownload = async () => {
+	const handleDownload = async (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
 		setIsGenerating(true);
 		try {
 			// Parse SVG to get dimensions
@@ -302,6 +307,7 @@ function DownloadPNGButton({ svg, filename, width = 512, height }: { svg: string
 
 	return (
 		<button
+			type="button"
 			onClick={handleDownload}
 			disabled={isGenerating}
 			className="px-3 py-1.5 bg-[#1447e6] hover:bg-[#2156FC] text-white text-xs font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"

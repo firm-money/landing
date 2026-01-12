@@ -67,7 +67,7 @@ export function Hero({
 									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
 									className="font-heading text-5xl font-semibold leading-[1.05] tracking-tight md:text-[64px] text-[#e1e2e5]"
 								>
-									Your Money <br /> should be <br /> Fair, Reliable, <br /> and <span className="text-brand-yellow uppercase">Firm</span>
+									Your money <br /> should be <br /> fair, reliable, <br /> and <span className="text-brand-yellow uppercase">Firm</span>.
 								</motion.h1>
 								<motion.p
 									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
@@ -77,7 +77,7 @@ export function Hero({
 								>
 									The Status Native stablecoin where you earn Karma,{" "}
 									<span className="font-semibold text-white">access sustainable yield,</span>{" "}
-									<span className="font-semibold text-white">and borrow on your terms.</span>
+									and borrow on your terms.
 								</motion.p>
 							</div>
 
@@ -211,8 +211,8 @@ export function Hero({
 								<div className="relative group bg-[#1d2029]/40 backdrop-blur-[2px] border border-white/5 p-4 md:p-6 xl:pb-8 flex flex-col xl:justify-end min-h-[140px] md:min-h-[223px] transition-colors duration-300 stat-card-clip overflow-hidden isolate">
 									<div className="relative z-10 flex flex-col gap-3">
 										<p className="text-base md:text-lg lg:text-xl xl:text-lg text-[#e7e9ef]/80 font-sans font-medium tracking-tight leading-tight max-w-[240px] xl:max-w-[280px]">
-											Thanks for being early. We need some time to gather stats here. <br />
-											Until then, stay <span className="text-brand-yellow uppercase font-bold">firm</span>.
+											Firm was create with the idea that stablecoins should be redeemable for the underlying assets backing them at any time. Stablecoins should have reliable yield from multiple sources, and the value they create should be shared with the users who make it possible. <br /> <br />
+											Stablecoins should be <span className="text-brand-yellow uppercase font-bold">firm</span>.
 										</p>
 									</div>
 									<div className="absolute inset-0 flex items-center justify-center opacity-[0.03] -z-10">

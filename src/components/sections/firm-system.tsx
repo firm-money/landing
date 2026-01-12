@@ -17,31 +17,31 @@ import { useRef, useState } from "react";
 const systemItems = [
 	{
 		title: "Borrow & Mint",
-		description: "Mint FIRM against ETH, staked ETH, and Status-aligned assets. Positions are held in NFT vaults for easy transfer.",
+		description: "Mint USF against ETH, staked ETH, and Status-native assets. Positions are held in NFT vaults for easy transfer.",
 		angle: -90,
 		icon: CoinsDollarFreeIcons,
 	},
 	{
 		title: "Set Your Rate",
-		description: "Choose the interest rate you're willing to pay. Update it anytime to balance between cheap loans and higher yield.",
+		description: "Choose the interest rate you're willing to pay. Update it anytime to balance between cheap loans and higher stability.",
 		angle: -18,
 		icon: Chart01Icon,
 	},
 	{
 		title: "Earn Native Yield",
-		description: "FIRM holders earn 75% of borrower fees and all liquidation fees, plus governance incentives.",
+		description: "USF holders earn 75% of borrower fees and all liquidation fees, plus governance incentives.",
 		angle: 54,
 		icon: Coins01Icon,
 	},
 	{
 		title: "Gasless Status L2",
-		description: "FIRM lives on a gasless L2. Status uses native yield to cover gas, so you can transact without preloading ETH.",
+		description: "USF lives on the gasless Status Network L2. Status uses Karma reward aligned users with gasless transactions.",
 		angle: 126,
 		icon: FlashIcon,
 	},
 	{
 		title: "Redeem Anytime",
-		description: "FIRM is always redeemable for $1 worth of collateral, ensuring you can always exit back to hard assets.",
+		description: "USF is always redeemable for $1 worth of collateral, ensuring you can always exit your positions safely.",
 		angle: 198,
 		icon: Home01Icon,
 	},
