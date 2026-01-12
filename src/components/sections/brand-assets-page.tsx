@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Logo, Logotype, TokenLogo, BrandStar } from "@/components/brand-assets";
+import { Logo, Logotype, TokenLogo } from "@/components/brand-assets";
 
 // Brand colors extracted from CSS
 const brandColors = [
