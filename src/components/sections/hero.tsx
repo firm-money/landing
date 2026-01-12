@@ -1,6 +1,7 @@
 import { cubicBezier, motion, useReducedMotion } from "motion/react";
 import { BrandStar, Logotype } from "@/components/brand-assets";
 import { StatCard } from "@/components/stat-card";
+import { useState } from "react";
 
 interface BannerDisplayProps {
 	stats?: {
@@ -15,6 +16,27 @@ export function Hero({
 }: BannerDisplayProps) {
 	const shouldReduceMotion = useReducedMotion();
 	const hasStats = stats && stats.length > 0;
+	const [email, setEmail] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isSubmitted, setIsSubmitted] = useState(false);
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		if (!email || isSubmitting) return;
+
+		setIsSubmitting(true);
+		// TODO: Add your email capture API endpoint here
+		// Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
+		
+		// Simulate API call
+		setTimeout(() => {
+			setIsSubmitting(false);
+			setIsSubmitted(true);
+			setEmail("");
+			// Reset success message after 5 seconds
+			setTimeout(() => setIsSubmitted(false), 5000);
+		}, 1000);
+	};
 
 	return (
 		<div className="relative flex flex-col bg-[#151821] text-white overflow-hidden isolate">
@@ -45,7 +67,7 @@ export function Hero({
 									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
 									className="font-heading text-5xl font-semibold leading-[1.05] tracking-tight md:text-[64px] text-[#e1e2e5]"
 								>
-									Your money <br /> should be <span className="text-brand-yellow uppercase">firm</span>
+									Your Money <br /> should be <br /> Fair, Reliable, <br /> and <span className="text-brand-yellow uppercase">Firm</span>
 								</motion.h1>
 								<motion.p
 									initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
@@ -53,27 +75,54 @@ export function Hero({
 									transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
 									className="font-sans text-lg xl:text-xl font-normal leading-tight tracking-normal xl:tracking-[-0.75px] text-[#e1e3e7] md:text-[24px]"
 								>
-									Native stablecoin where you earn by using apps, and yield comes from{" "}
-									<span className="font-semibold text-white">real borrowing</span>,{" "}
-									<span className="font-semibold text-white">not printed points.</span>
+									The Status Native stablecoin where you earn Karma,{" "}
+									<span className="font-semibold text-white">access sustainable yield,</span>{" "}
+									<span className="font-semibold text-white">and borrow on your terms.</span>
 								</motion.p>
 							</div>
 
-							<motion.button
+							<motion.form
 								initial={{ y: shouldReduceMotion ? 0 : 20, opacity: 0 }}
 								animate={{ y: 0, opacity: 1 }}
 								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-								whileHover={{ y: -4, transition: { duration: 0.2, delay: 0 } }}
-								whileTap={{ scale: 0.96, y: 0, transition: { duration: 0.1, delay: 0 } }}
-								style={{ touchAction: "manipulation" }}
-								className="group bg-[#1447e6] border-2 border-white/20 hover:border-white/40 text-lg font-semibold px-4 py-3 h-auto shadow-[0_0_20px_rgba(20,71,230,0.3)] hover:shadow-[0_0_25px_rgba(20,71,230,0.5)] flex items-center gap-3 w-fit tracking-[-0.01em] cursor-pointer"
+								onSubmit={handleSubmit}
+								className="flex flex-col sm:flex-row gap-3 w-full max-w-md"
 							>
-								Make your bags FIRM
-								<div className="relative" aria-hidden="true">
-									<BrandStar className="size-6 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" />
-									<div className="absolute inset-0 bg-white/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-								</div>
-							</motion.button>
+								<input
+									type="email"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									placeholder="Enter your email"
+									required
+									disabled={isSubmitting || isSubmitted}
+									className="flex-1 bg-[#1d2029]/60 border-2 border-white/10 focus:border-white/30 text-white placeholder:text-white/40 text-base font-medium px-4 py-3 h-auto outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+								/>
+								<motion.button
+									type="submit"
+									whileHover={!isSubmitting && !isSubmitted ? { y: -4, transition: { duration: 0.2, delay: 0 } } : {}}
+									whileTap={!isSubmitting && !isSubmitted ? { scale: 0.96, y: 0, transition: { duration: 0.1, delay: 0 } } : {}}
+									style={{ touchAction: "manipulation" }}
+									disabled={isSubmitting || isSubmitted}
+									className="group bg-[#1447e6] border-2 border-white/20 hover:border-white/40 text-lg font-semibold px-4 py-3 h-auto shadow-[0_0_20px_rgba(20,71,230,0.3)] hover:shadow-[0_0_25px_rgba(20,71,230,0.5)] flex items-center gap-3 w-full sm:w-auto tracking-[-0.01em] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed justify-center"
+								>
+									{isSubmitted ? (
+										<>
+											Subscribed!
+											<div className="relative" aria-hidden="true">
+												<BrandStar className="size-6" />
+											</div>
+										</>
+									) : (
+										<>
+											{isSubmitting ? "Subscribing..." : "Get updates"}
+											<div className="relative" aria-hidden="true">
+												<BrandStar className="size-6 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" />
+												<div className="absolute inset-0 bg-white/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+											</div>
+										</>
+									)}
+								</motion.button>
+							</motion.form>
 						</div>
 
 						{/* Right Visual */}
