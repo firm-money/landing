@@ -135,15 +135,49 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 
 function DownloadSVGButton({ svg, filename }: { svg: string; filename: string }) {
 	const handleDownload = () => {
-		const blob = new Blob([svg], { type: "image/svg+xml" });
-		const url = URL.createObjectURL(blob);
-		const a = document.createElement("a");
-		a.href = url;
-		a.download = filename;
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
-		URL.revokeObjectURL(url);
+		try {
+			// Parse and fix SVG dimensions
+			const parser = new DOMParser();
+			const svgDoc = parser.parseFromString(svg, "image/svg+xml");
+			const svgElement = svgDoc.documentElement;
+			const viewBox = svgElement.getAttribute("viewBox");
+			
+			// Extract dimensions from viewBox if width/height are percentages
+			if (viewBox) {
+				const [, , vbWidth, vbHeight] = viewBox.split(" ").map(Number);
+				if (vbWidth && vbHeight) {
+					// Set explicit pixel dimensions
+					svgElement.setAttribute("width", vbWidth.toString());
+					svgElement.setAttribute("height", vbHeight.toString());
+				}
+			}
+			
+			// Replace currentColor with actual color for better compatibility
+			const allElements = svgElement.querySelectorAll("*");
+			allElements.forEach((el) => {
+				if (el.getAttribute("fill") === "currentColor") {
+					el.setAttribute("fill", "#2156FC");
+				}
+			});
+			
+			let fixedSvg = new XMLSerializer().serializeToString(svgElement);
+			// Add XML declaration if not present
+			if (!fixedSvg.startsWith("<?xml")) {
+				fixedSvg = '<?xml version="1.0" encoding="UTF-8"?>' + fixedSvg;
+			}
+			const blob = new Blob([fixedSvg], { type: "image/svg+xml;charset=utf-8" });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
+		} catch (err) {
+			console.error("Failed to download SVG:", err);
+			alert("Failed to download SVG. Please try again.");
+		}
 	};
 
 	return (
@@ -171,59 +205,89 @@ function DownloadPNGButton({ svg, filename, width = 512, height }: { svg: string
 			let finalWidth = width;
 			let finalHeight = height || width;
 			
+			// Calculate dimensions from viewBox if not provided
 			if (viewBox) {
 				const [, , vbWidth, vbHeight] = viewBox.split(" ").map(Number);
-				if (vbWidth && vbHeight) {
+				if (vbWidth && vbHeight && !height) {
 					const aspectRatio = vbWidth / vbHeight;
-					if (!height) {
-						finalHeight = Math.round(finalWidth / aspectRatio);
-					}
+					finalHeight = Math.round(finalWidth / aspectRatio);
 				}
 			}
 			
-			// Set explicit width and height on SVG for better rendering
+			// Replace currentColor with actual color
+			const allElements = svgElement.querySelectorAll("*");
+			allElements.forEach((el) => {
+				if (el.getAttribute("fill") === "currentColor") {
+					el.setAttribute("fill", "#2156FC");
+				}
+			});
+			
+			// Set explicit width and height on SVG for canvas rendering
 			svgElement.setAttribute("width", finalWidth.toString());
 			svgElement.setAttribute("height", finalHeight.toString());
+			svgElement.removeAttribute("style"); // Remove any inline styles that might interfere
+			
 			const modifiedSvg = new XMLSerializer().serializeToString(svgElement);
 			
-			// Create an image from the SVG
-			const svgBlob = new Blob([modifiedSvg], { type: "image/svg+xml" });
+			// Create data URL from SVG
+			const svgBlob = new Blob([modifiedSvg], { type: "image/svg+xml;charset=utf-8" });
 			const svgUrl = URL.createObjectURL(svgBlob);
 			const img = new Image();
 			
+			// Set crossOrigin to avoid CORS issues
+			img.crossOrigin = "anonymous";
+			
 			img.onload = () => {
-				// Create canvas
-				const canvas = document.createElement("canvas");
-				canvas.width = finalWidth;
-				canvas.height = finalHeight;
-				const ctx = canvas.getContext("2d");
-				
-				if (ctx) {
-					// Draw image on canvas
+				try {
+					// Create canvas with high DPI for better quality
+					const scale = 2; // 2x for retina displays
+					const canvas = document.createElement("canvas");
+					canvas.width = finalWidth * scale;
+					canvas.height = finalHeight * scale;
+					const ctx = canvas.getContext("2d");
+					
+					if (!ctx) {
+						throw new Error("Could not get canvas context");
+					}
+					
+					// Scale context for high DPI
+					ctx.scale(scale, scale);
+					
+					// Draw image on canvas (transparent background)
 					ctx.drawImage(img, 0, 0, finalWidth, finalHeight);
 					
 					// Convert to PNG and download
-					canvas.toBlob((blob) => {
-						if (blob) {
-							const url = URL.createObjectURL(blob);
-							const a = document.createElement("a");
-							a.href = url;
-							a.download = filename.replace(".svg", ".png");
-							document.body.appendChild(a);
-							a.click();
-							document.body.removeChild(a);
-							URL.revokeObjectURL(url);
-						}
-						URL.revokeObjectURL(svgUrl);
-						setIsGenerating(false);
-					}, "image/png");
-				} else {
+					canvas.toBlob(
+						(blob) => {
+							if (blob) {
+								const url = URL.createObjectURL(blob);
+								const a = document.createElement("a");
+								a.href = url;
+								a.download = filename.replace(".svg", ".png");
+								document.body.appendChild(a);
+								a.click();
+								document.body.removeChild(a);
+								URL.revokeObjectURL(url);
+							} else {
+								throw new Error("Failed to create PNG blob");
+							}
+							URL.revokeObjectURL(svgUrl);
+							setIsGenerating(false);
+						},
+						"image/png",
+						1.0 // Maximum quality
+					);
+				} catch (err) {
+					console.error("Error creating PNG:", err);
+					alert("Failed to generate PNG. Please try again.");
 					URL.revokeObjectURL(svgUrl);
 					setIsGenerating(false);
 				}
 			};
 			
-			img.onerror = () => {
+			img.onerror = (err) => {
+				console.error("Error loading SVG image:", err);
+				alert("Failed to load SVG. Please try again.");
 				URL.revokeObjectURL(svgUrl);
 				setIsGenerating(false);
 			};
@@ -231,6 +295,7 @@ function DownloadPNGButton({ svg, filename, width = 512, height }: { svg: string
 			img.src = svgUrl;
 		} catch (err) {
 			console.error("Failed to generate PNG:", err);
+			alert("Failed to generate PNG. Please try again.");
 			setIsGenerating(false);
 		}
 	};
