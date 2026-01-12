@@ -33,9 +33,13 @@ export function App() {
 			const target = e.target as HTMLElement;
 			const link = target.closest("a");
 			if (link && link.href) {
+				// Don't intercept download links or blob/data URLs
+				if (link.hasAttribute("download") || link.href.startsWith("blob:") || link.href.startsWith("data:")) {
+					return;
+				}
 				try {
 					const url = new URL(link.href);
-					// Only handle same-origin links
+					// Only handle same-origin links (not external or special protocols)
 					if (url.origin === window.location.origin && url.pathname !== window.location.pathname) {
 						e.preventDefault();
 						window.history.pushState({}, "", url.pathname);

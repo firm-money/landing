@@ -5,17 +5,17 @@ import { cn } from "@/lib/utils";
 const features = [
 	{
 		title: "BORROW",
-		description: "Mint FIRM against ETH and Status-native assets with adjustable rates.",
+		description: "Mint USF against ETH and Status-native assets like SNT and LINEA with fixed adjustable rates.",
 		icon: StarBorrow,
 	},
 	{
 		title: "EARN",
-		description: "Deposit into the Safety Pool and earn yield from real borrowing.",
+		description: "Deposit into the Stability Pools and earn yield from borrowers.",
 		icon: StarEarn,
 	},
 	{
-		title: "ALIGN STATUS",
-		description: "Borrower fees fund Status apps, liquidity, and public goods.",
+		title: "USE",
+		description: "Recieve Karma for using Firm, and enojy gas-less transactions.",
 		icon: StarAlignStatus,
 	},
 ];
