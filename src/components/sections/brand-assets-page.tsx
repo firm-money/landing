@@ -156,6 +156,96 @@ function DownloadSVGButton({ svg, filename }: { svg: string; filename: string })
 	);
 }
 
+function DownloadPNGButton({ svg, filename, width = 512, height }: { svg: string; filename: string; width?: number; height?: number }) {
+	const [isGenerating, setIsGenerating] = useState(false);
+
+	const handleDownload = async () => {
+		setIsGenerating(true);
+		try {
+			// Parse SVG to get dimensions
+			const parser = new DOMParser();
+			const svgDoc = parser.parseFromString(svg, "image/svg+xml");
+			const svgElement = svgDoc.documentElement;
+			const viewBox = svgElement.getAttribute("viewBox");
+			
+			let finalWidth = width;
+			let finalHeight = height || width;
+			
+			if (viewBox) {
+				const [, , vbWidth, vbHeight] = viewBox.split(" ").map(Number);
+				if (vbWidth && vbHeight) {
+					const aspectRatio = vbWidth / vbHeight;
+					if (!height) {
+						finalHeight = Math.round(finalWidth / aspectRatio);
+					}
+				}
+			}
+			
+			// Set explicit width and height on SVG for better rendering
+			svgElement.setAttribute("width", finalWidth.toString());
+			svgElement.setAttribute("height", finalHeight.toString());
+			const modifiedSvg = new XMLSerializer().serializeToString(svgElement);
+			
+			// Create an image from the SVG
+			const svgBlob = new Blob([modifiedSvg], { type: "image/svg+xml" });
+			const svgUrl = URL.createObjectURL(svgBlob);
+			const img = new Image();
+			
+			img.onload = () => {
+				// Create canvas
+				const canvas = document.createElement("canvas");
+				canvas.width = finalWidth;
+				canvas.height = finalHeight;
+				const ctx = canvas.getContext("2d");
+				
+				if (ctx) {
+					// Draw image on canvas
+					ctx.drawImage(img, 0, 0, finalWidth, finalHeight);
+					
+					// Convert to PNG and download
+					canvas.toBlob((blob) => {
+						if (blob) {
+							const url = URL.createObjectURL(blob);
+							const a = document.createElement("a");
+							a.href = url;
+							a.download = filename.replace(".svg", ".png");
+							document.body.appendChild(a);
+							a.click();
+							document.body.removeChild(a);
+							URL.revokeObjectURL(url);
+						}
+						URL.revokeObjectURL(svgUrl);
+						setIsGenerating(false);
+					}, "image/png");
+				} else {
+					URL.revokeObjectURL(svgUrl);
+					setIsGenerating(false);
+				}
+			};
+			
+			img.onerror = () => {
+				URL.revokeObjectURL(svgUrl);
+				setIsGenerating(false);
+			};
+			
+			img.src = svgUrl;
+		} catch (err) {
+			console.error("Failed to generate PNG:", err);
+			setIsGenerating(false);
+		}
+	};
+
+	return (
+		<button
+			onClick={handleDownload}
+			disabled={isGenerating}
+			className="px-3 py-1.5 bg-[#1447e6] hover:bg-[#2156FC] text-white text-xs font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+		>
+			{isGenerating ? "Generating..." : "Download PNG"}
+		</button>
+	);
+}
+
 export function BrandAssetsPage() {
 	return (
 		<div className="min-h-screen bg-[#151821] text-white py-12 md:py-24">
@@ -173,7 +263,7 @@ export function BrandAssetsPage() {
 						Download logos, copy brand colors, and get font information for FIRM.
 					</p>
 					<p className="text-white/40 text-sm max-w-2xl">
-						All logos are provided as SVG files. To convert to PNG, use any online converter or design tool. Right-click the preview to save as image.
+						All logos are available in both SVG and PNG formats. Click the download buttons to get your preferred format.
 					</p>
 				</motion.div>
 
@@ -195,6 +285,7 @@ export function BrandAssetsPage() {
 									<div className="flex flex-wrap gap-2">
 										<CopyButton text={logotypeSVG} label="SVG" />
 										<DownloadSVGButton svg={logotypeSVG} filename="firm-logotype.svg" />
+										<DownloadPNGButton svg={logotypeSVG} filename="firm-logotype.svg" width={1024} height={320} />
 									</div>
 								</div>
 								<div className="bg-[#151821] p-6 border border-white/5 flex items-center justify-center min-h-[120px]">
@@ -219,6 +310,7 @@ export function BrandAssetsPage() {
 									<div className="flex flex-wrap gap-2">
 										<CopyButton text={logoIconSVG} label="SVG" />
 										<DownloadSVGButton svg={logoIconSVG} filename="firm-logo-icon.svg" />
+										<DownloadPNGButton svg={logoIconSVG} filename="firm-logo-icon.svg" width={512} />
 									</div>
 								</div>
 								<div className="bg-[#151821] p-6 border border-white/5 flex items-center justify-center min-h-[120px]">
@@ -243,6 +335,7 @@ export function BrandAssetsPage() {
 									<div className="flex flex-wrap gap-2">
 										<CopyButton text={tokenLogoSVG} label="SVG" />
 										<DownloadSVGButton svg={tokenLogoSVG} filename="firm-token-logo.svg" />
+										<DownloadPNGButton svg={tokenLogoSVG} filename="firm-token-logo.svg" width={512} />
 									</div>
 								</div>
 								<div className="bg-[#151821] p-6 border border-white/5 flex items-center justify-center min-h-[120px]">

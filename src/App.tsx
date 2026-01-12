@@ -10,15 +10,41 @@ export function App() {
 	const [currentPage, setCurrentPage] = useState<string>("home");
 
 	useEffect(() => {
-		const handleHashChange = () => {
-			setCurrentPage(window.location.hash === "#brand-assets" ? "brand-assets" : "home");
+		const handleLocationChange = () => {
+			const path = window.location.pathname;
+			setCurrentPage(path === "/brand-assets" ? "brand-assets" : "home");
 		};
 
-		handleHashChange();
-		window.addEventListener("hashchange", handleHashChange);
+		// Handle initial load
+		handleLocationChange();
+
+		// Handle browser back/forward buttons
+		window.addEventListener("popstate", handleLocationChange);
+
+		// Handle internal link clicks
+		const handleClick = (e: MouseEvent) => {
+			const target = e.target as HTMLElement;
+			const link = target.closest("a");
+			if (link && link.href) {
+				try {
+					const url = new URL(link.href);
+					// Only handle same-origin links
+					if (url.origin === window.location.origin && url.pathname !== window.location.pathname) {
+						e.preventDefault();
+						window.history.pushState({}, "", url.pathname);
+						handleLocationChange();
+					}
+				} catch {
+					// Invalid URL, let browser handle it
+				}
+			}
+		};
+
+		document.addEventListener("click", handleClick);
 
 		return () => {
-			window.removeEventListener("hashchange", handleHashChange);
+			window.removeEventListener("popstate", handleLocationChange);
+			document.removeEventListener("click", handleClick);
 		};
 	}, []);
 
