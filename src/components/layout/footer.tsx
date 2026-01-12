@@ -35,7 +35,7 @@ export function Footer() {
 						<ul className="flex flex-col gap-4">
 							<li><a href="https://docs.usf.money" className="text-white/40 hover:text-white text-sm transition-colors">Documentation</a></li>
 							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Governance</a></li>
-							<li><a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Brand Assets</a></li>
+							<li><a href="#brand-assets" className="text-white/40 hover:text-white text-sm transition-colors">Brand Assets</a></li>
 						</ul>
 					</div>
 

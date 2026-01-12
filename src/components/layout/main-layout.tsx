@@ -10,8 +10,8 @@ export function MainLayout({ children }: MainLayoutProps) {
 	return (
 		<div className="flex flex-col min-h-screen bg-[#151821]">
 			<Banner
-				text="yUSF is launching on Status soon."
-				link={{ text: "Learn More:", href: "https://status.network/#ref=usf" }}
+				text="USF is launching on Status soon."
+				link={{ text: "Learn More", href: "https://status.network/#ref=usf" }}
 			/>
 			<Navbar />
 			<main className="flex-1">
