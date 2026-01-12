@@ -5,6 +5,7 @@ import { Features } from "@/components/sections/features";
 import { FirmSystem } from "@/components/sections/firm-system";
 import { StatusFirmSection } from "@/components/sections/status-firm";
 import { BrandAssetsPage } from "@/components/sections/brand-assets-page";
+import { NotFoundPage } from "@/components/sections/not-found-page";
 
 export function App() {
 	const [currentPage, setCurrentPage] = useState<string>("home");
@@ -12,7 +13,13 @@ export function App() {
 	useEffect(() => {
 		const handleLocationChange = () => {
 			const path = window.location.pathname;
-			setCurrentPage(path === "/brand-assets" ? "brand-assets" : "home");
+			if (path === "/brand-assets") {
+				setCurrentPage("brand-assets");
+			} else if (path === "/") {
+				setCurrentPage("home");
+			} else {
+				setCurrentPage("404");
+			}
 		};
 
 		// Handle initial load
@@ -52,6 +59,14 @@ export function App() {
 		return (
 			<MainLayout>
 				<BrandAssetsPage />
+			</MainLayout>
+		);
+	}
+
+	if (currentPage === "404") {
+		return (
+			<MainLayout>
+				<NotFoundPage />
 			</MainLayout>
 		);
 	}
