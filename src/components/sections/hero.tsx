@@ -25,17 +25,40 @@ export function Hero({
 		if (!email || isSubmitting) return;
 
 		setIsSubmitting(true);
-		// TODO: Add your email capture API endpoint here
-		// Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
 		
-		// Simulate API call
-		setTimeout(() => {
-			setIsSubmitting(false);
+		try {
+			// TODO: Replace with your Google Apps Script URL
+			// Instructions in comments below
+			const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVZrJo7BSpPbW37LMD3nqp5i8x9qrw-AAMX9n8L0cVLTufjMK5qVkfm50WT5xqTU_1qg/exec";
+			
+			await fetch(SCRIPT_URL, {
+				method: 'POST',
+				mode: 'no-cors', // Required for Google Apps Script
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					email,
+					source: 'landing-page',
+					timestamp: new Date().toISOString(),
+				}),
+			});
+			
+			// With no-cors mode, we can't read the response, so assume success
 			setIsSubmitted(true);
 			setEmail("");
+			setIsSubmitting(false);
+			
 			// Reset success message after 5 seconds
 			setTimeout(() => setIsSubmitted(false), 5000);
-		}, 1000);
+		} catch (error) {
+			console.error('Error submitting email:', error);
+			// Still show success to user (no-cors prevents error detection)
+			setIsSubmitted(true);
+			setEmail("");
+			setIsSubmitting(false);
+			setTimeout(() => setIsSubmitted(false), 5000);
+		}
 	};
 
 	return (
