@@ -24,11 +24,16 @@ export function Hero({
 		e.preventDefault();
 		if (!email || isSubmitting) return;
 
+		// Simple email validation
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			console.error('Invalid email address');
+			return;
+		}
+
 		setIsSubmitting(true);
 		
 		try {
-			// TODO: Replace with your Google Apps Script URL
-			// Instructions in comments below
 			const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVZrJo7BSpPbW37LMD3nqp5i8x9qrw-AAMX9n8L0cVLTufjMK5qVkfm50WT5xqTU_1qg/exec";
 			
 			await fetch(SCRIPT_URL, {
