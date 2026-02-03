@@ -10,9 +10,9 @@ export function Navbar() {
 				</a>
 
 				<div className="hidden md:flex items-center gap-8">
-					<a href="https://app.usf.money" className="text-sm font-medium text-white/60 hover:text-white transition-colors">App</a>
 					<a href="https://docs.usf.money" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</a>
 					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Community</a>
+					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pre-Deposit Vaults</a>
 				</div>
 
 				<motion.a
