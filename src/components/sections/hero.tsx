@@ -19,15 +19,19 @@ export function Hero({
 	const [email, setEmail] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [emailError, setEmailError] = useState("");
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!email || isSubmitting) return;
 
-		// Simple email validation
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailRegex.test(email)) {
-			console.error('Invalid email address');
+		// Clear any previous errors
+		setEmailError("");
+
+		// Email validation
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+		if (!emailRegex.test(email.trim())) {
+			setEmailError("Please enter a valid email address");
 			return;
 		}
 
@@ -119,11 +123,14 @@ export function Hero({
 								<input
 									type="email"
 									value={email}
-									onChange={(e) => setEmail(e.target.value)}
+									onChange={(e) => {
+										setEmail(e.target.value);
+										if (emailError) setEmailError(""); // Clear error on typing
+									}}
 									placeholder="Enter your email"
 									required
 									disabled={isSubmitting || isSubmitted}
-									className="flex-1 bg-[#1d2029]/60 border-2 border-white/10 focus:border-white/30 text-white placeholder:text-white/40 text-base font-medium px-4 py-3 h-auto outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+									className={`flex-1 bg-[#1d2029]/60 border-2 ${emailError ? 'border-red-400' : 'border-white/10'} focus:border-white/30 text-white placeholder:text-white/40 text-base font-medium px-4 py-3 h-auto outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
 								/>
 								<motion.button
 									type="submit"
@@ -151,6 +158,17 @@ export function Hero({
 									)}
 								</motion.button>
 							</motion.form>
+							
+							{/* Error message */}
+							{emailError && (
+								<motion.p
+									initial={{ opacity: 0, y: -10 }}
+									animate={{ opacity: 1, y: 0 }}
+									className="text-red-400 text-sm mt-2"
+								>
+									{emailError}
+								</motion.p>
+							)}
 						</div>
 
 						{/* Right Visual */}
