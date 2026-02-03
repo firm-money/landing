@@ -1,12 +1,10 @@
 import { Logotype, BrandStar } from "@/components/brand-assets";
-import discordIcon from "@/assets/social-icons/logo-discord.svg";
 import githubIcon from "@/assets/social-icons/logo-github.svg";
 import xIcon from "@/assets/social-icons/logo-x.svg";
 import statusIcon from "@/assets/social-icons/logo-status.svg";
 
 const socials = [
 	{ id: "status", src: statusIcon, alt: "Status", href: "https://status.network/#ref=usf" },
-	{ id: "discord", src: discordIcon, alt: "Discord", href: "#" },
 	{ id: "github", src: githubIcon, alt: "GitHub", href: "#" },
 	{ id: "x", src: xIcon, alt: "X", href: "https://x.com/usf_money" },
 ];

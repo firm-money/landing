@@ -10,8 +10,8 @@ export function MainLayout({ children }: MainLayoutProps) {
 	return (
 		<div className="flex flex-col min-h-screen bg-[#151821]">
 			<Banner
-				text="USF is launching on Status soon."
-				link={{ text: "Learn More", href: "https://status.network/#ref=usf" }}
+				text="Pre-deposit ETH and SNT ahead of Status Network mainnet launch for extra rewards!"
+				link={{ text: "Learn More.", href: "https://hub.status.network/pre-deposits?firm" }}
 			/>
 			<Navbar />
 			<main className="flex-1">
