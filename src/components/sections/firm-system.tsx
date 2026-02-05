@@ -28,14 +28,14 @@ const systemItems = [
 		icon: Chart01Icon,
 	},
 	{
-		title: "Earn Native Yield",
-		description: "USF holders earn 75% of borrower fees and all liquidation fees, plus governance incentives.",
+		title: "Earn Karma & Native Yield",
+		description: "USF holders earn 75% of borrower fees and all liquidation fees, plus governance incentives from FIRM and Status Network, and receive boosted reputation through Karma.",
 		angle: 54,
 		icon: Coins01Icon,
 	},
 	{
-		title: "Gasless Status L2",
-		description: "USF lives on the gasless Status Network L2. Status uses Karma reward aligned users with gasless transactions.",
+		title: "Use gaslessly on Status L2",
+		description: "USF lives on the first fully gasless chain. Free transactions at scale on Status Network will ultimately unlock composable privacy with boosted incentives for engaged users.",
 		angle: 126,
 		icon: FlashIcon,
 	},

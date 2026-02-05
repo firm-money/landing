@@ -5,17 +5,17 @@ import { cn } from "@/lib/utils";
 const features = [
 	{
 		title: "BORROW",
-		description: "Mint USF against ETH and Status-native assets like SNT and LINEA with fixed adjustable rates.",
+		description: "Mint USF against ETH and Status-native assets like SNT with fixed adjustable rates.",
 		icon: StarBorrow,
 	},
 	{
 		title: "EARN",
-		description: "Deposit into the Stability Pools and earn yield from borrowers.",
+		description: "Deposit USF into FIRM Stability Pools to earn yield from borrowers and receive direct incentives through Status' native yield model.",
 		icon: StarEarn,
 	},
 	{
 		title: "USE",
-		description: "Recieve Karma for using Firm, and enojy gas-less transactions.",
+		description: "Use USF across Status Network's gasless apps, receive Karma and increase your reputation, and earn governance over yield.",
 		icon: StarAlignStatus,
 	},
 ];
