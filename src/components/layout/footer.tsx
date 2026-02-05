@@ -17,7 +17,7 @@ export function Footer() {
 					<div className="flex flex-col gap-6">
 						<Logotype fill="#2156FC" className="h-8 w-auto" />
 						<p className="text-white/40 text-sm leading-relaxed max-w-xs">
-							Native stablecoin where yield comes from real borrowing, not printed points.
+							The decentralized stablecoin with boosted yield that humans and bots can borrow on their own terms.
 						</p>
 					</div>
 

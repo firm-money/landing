@@ -9,17 +9,17 @@ const features = [
 	{
 		title: "Native liquidity",
 		description:
-			"FIRM is the default stable unit across Status apps, concentrating liquidity instead of fragmenting it across many stables.",
+			"FIRM is the default decentralized stable unit across Status Network apps, concentrating liquidity instead of fragmenting it across multiple stables.",
 	},
 	{
 		title: "Gasless UX",
 		description:
-			"Users earn gas through Karma and participation, so they can transact in your app without ever touching a bridge UI.",
+			"Status Network is designed to enable gas-free transactions at scale, offering the fastest and cheapest onboarding experience for humans and bots to onchain apps.",
 	},
 	{
 		title: "Composable design",
 		description:
-			"NFT vaults, user-set rates, and native yield make FIRM easy to plug into new DeFi, game economies, or onchain social features.",
+			"NFT vaults, user-set rates, and native yield make FIRM easy to plug into new DeFi flows, game economies, and onchain social and community apps.",
 	},
 ];
 
