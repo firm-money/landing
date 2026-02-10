@@ -75,7 +75,7 @@ export function NotFoundPage() {
 							Brand Assets
 						</a>
 						<span className="text-white/20">•</span>
-						<a href="https://app.usf.money" className="text-white/60 hover:text-white transition-colors">
+						<a href="#coming-soon" className="text-white/60 hover:text-white transition-colors">
 							App
 						</a>
 						<span className="text-white/20">•</span>
