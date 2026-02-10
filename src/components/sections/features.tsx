@@ -15,7 +15,7 @@ const features = [
 	},
 	{
 		title: "USE",
-		description: "Use USF across Status Network's gasless apps, receive Karma and increase your reputation, and earn governance over yield.",
+		description: "Use USF across Status Network's gasless apps, receive Karma, increase your reputation and earn governance power over yield.",
 		icon: StarAlignStatus,
 	},
 ];
