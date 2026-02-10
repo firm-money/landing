@@ -12,11 +12,11 @@ export function Navbar() {
 				<div className="hidden md:flex items-center gap-8">
 					<a href="https://docs.usf.money" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</a>
 					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Community</a>
-					<a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pre-Deposit Vaults</a>
+					<a href="https://hub.status.network/pre-deposits?firm" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pre-Deposit Vaults</a>
 				</div>
 
 				<motion.a
-					href="https://app.usf.money"
+					href="#coming-soon"
 					whileHover={{ scale: 1.02 }}
 					whileTap={{ scale: 0.98 }}
 					className="cursor-pointer bg-[#1447e6] text-white px-5 py-2 rounded-sm text-sm font-semibold flex items-center gap-2"
